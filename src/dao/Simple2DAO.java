@@ -1,6 +1,9 @@
 package dao;
 
+import java.sql.*;
 import java.util.List;
+
+import com.mysql.cj.x.protobuf.MysqlxSql.StmtExecute;
 
 public class Simple2DAO {
 
@@ -12,15 +15,38 @@ public class Simple2DAO {
 	 */
 	public void create() {
 		//코드작성
+		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
+		String user = "root";
+		String password = "smart";
+		StringBuffer sql = new StringBuffer();
+		sql.append("\n INSERT INTO smart.exam "); 
+		sql.append("\n (varcharTest, charTest, doubleTest, dateTest, dateTimeTest) ");  
+		sql.append("\n VALUES ('가변폭문자열', '고정폭문자열', 1.1, curdate(), now()) "); 
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
 		try {
 			//드라이버로드
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//DB연결
-			//prepereStatament(SQL작성 실행)
+			conn = DriverManager.getConnection(url, user, password);
+			//prepareStatement(SQL작성 실행)
+			stmt = conn.prepareStatement(sql.toString());
+			stmt.executeUpdate();
 			//결과처리(Select문만 ResultSet 객체 리턴)
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		//닫기		
 	}
@@ -35,7 +61,7 @@ public class Simple2DAO {
 		//코드작성
 		//드라이버로드
 				//DB연결
-				//prepereStatament(SQL작성 실행)
+				//prepareStatement(SQL작성 실행)
 				//결과처리(Select문만 ResultSet 객체 리턴)
 				//닫기
 		return null;
@@ -51,7 +77,7 @@ public class Simple2DAO {
 		//코드작성
 		//드라이버로드
 				//DB연결
-				//prepereStatament(SQL작성 실행)
+				//prepareStatement(SQL작성 실행)
 				//결과처리(Select문만 ResultSet 객체 리턴)
 				//닫기
 		
@@ -67,7 +93,7 @@ public class Simple2DAO {
 		//코드작성
 		//드라이버로드
 				//DB연결
-				//prepereStatament(SQL작성 실행)
+				//prepareStatement(SQL작성 실행)
 				//결과처리(Select문만 ResultSet 객체 리턴)
 				//닫기
 		
