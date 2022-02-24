@@ -1,20 +1,23 @@
-package dao;
+package test.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
-public class Simple5JDBCDAO {
+public class Simple8JDBCDAO {
 
 	public static void main(String[] args) {
-		double param = 100.001;
+		String paramVarchar = "varcharTestUpdate";
+
 		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
 		String user = "root";
 		String password = "smart";
-		String sql = "SELECT * FROM exam WHERE intTest = ? ";
+		String sql = " DELETE FROM exam WHERE varcharTest = ? ";
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -26,19 +29,19 @@ public class Simple5JDBCDAO {
 			//3. SQL문작성(Statement, PreparedStatement)
 			stmt = conn.prepareStatement(sql);
 			
-			stmt.setDouble(1, param);
+			stmt.setString(1, paramVarchar);
+
 			
-			//4. SQL문실행(executeQuery(), executeUpdate())
-			rs = stmt.executeQuery();
+			//4. SQL문실행(Select문 만 executeQuery(), executeUpdate())
+			int res = stmt.executeUpdate();
+			if(res > 0) {
+				System.out.println(res+"개의 행이 삭제되었습니다.");
+			} else {
+				System.out.println("삭제실패했습니다.");
+			}
 			//5. Select문 만 ResultSet 객체를 반환한다.
 			//   나머진 int를 반환한다.
-			while(rs.next()) {
-				System.out.printf("varcharTest:%s,",rs.getString("varchartest"));
-				System.out.printf("charTest:%s,",rs.getString("chartest"));
-				System.out.printf("intTest:%s,",rs.getString("intTest"));
-				System.out.printf("dateTest:%s,",rs.getString("dateTest"));
-				System.out.printf("dateTimeTest:%s %n",rs.getString("dateTimeTest"));
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

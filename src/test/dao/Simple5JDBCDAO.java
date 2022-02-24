@@ -1,30 +1,35 @@
-package dao;
+package test.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Simple3JDBCDAO {
+public class Simple5JDBCDAO {
 
 	public static void main(String[] args) {
+		double param = 100.001;
 		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
 		String user = "root";
 		String password = "smart";
-		String sql = "SELECT * FROM exam";
+		String sql = "SELECT * FROM exam WHERE intTest = ? ";
 		ResultSet rs = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
 			//1. 드라이버 로드(Class.forName())
 			Class.forName("com.mysql.cj.jdbc.Driver");			
 			//2. DB연결(DriverManager.getConnection())
 			conn = DriverManager.getConnection(url, user, password);
-			//3. SQL문작성(Statement, PrepareStatement)
-			stmt = conn.createStatement();
+			//3. SQL문작성(Statement, PreparedStatement)
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setDouble(1, param);
+			
 			//4. SQL문실행(executeQuery(), executeUpdate())
-			rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery();
 			//5. Select문 만 ResultSet 객체를 반환한다.
 			//   나머진 int를 반환한다.
 			while(rs.next()) {

@@ -1,4 +1,4 @@
-package dao;
+package test.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-public class Simple9JDBCDAO {
+public class Simple7JDBCDAO {
 
 	public static void main(String[] args) {
 		String paramVarchar = "varcharTestUpdate";
@@ -17,8 +17,7 @@ public class Simple9JDBCDAO {
 		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
 		String user = "root";
 		String password = "smart";
-		StringBuffer sql = new StringBuffer()
-				.append(" DELETE FROM exam WHERE varcharTest = ? ");
+		String sql = " UPDATE exam SET varcharTest = ? WHERE 1 ";
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -28,7 +27,7 @@ public class Simple9JDBCDAO {
 			//2. DB연결(DriverManager.getConnection())
 			conn = DriverManager.getConnection(url, user, password);
 			//3. SQL문작성(Statement, PreparedStatement)
-			stmt = conn.prepareStatement(sql.toString());
+			stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, paramVarchar);
 
@@ -36,9 +35,9 @@ public class Simple9JDBCDAO {
 			//4. SQL문실행(Select문 만 executeQuery(), executeUpdate())
 			int res = stmt.executeUpdate();
 			if(res > 0) {
-				System.out.println(res+"개의 행이 삭제되었습니다.");
+				System.out.println(res+"개의 행이 수정되었습니다.");
 			} else {
-				System.out.println("삭제실패했습니다.");
+				System.out.println("수정실패했습니다.");
 			}
 			//5. Select문 만 ResultSet 객체를 반환한다.
 			//   나머진 int를 반환한다.

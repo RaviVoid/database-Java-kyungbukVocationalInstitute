@@ -1,11 +1,11 @@
-package dao;
+package test.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class SimpleJDBCDAO {
+public class Simple2JDBCDAO {
 
 	public static void main(String[] args) throws Exception {
 		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
@@ -23,9 +23,13 @@ public class SimpleJDBCDAO {
 		ResultSet rs = stmt.executeQuery(sql);
 		//5. Select문 만 ResultSet 객체를 반환한다.
 		//   나머진 int를 반환한다.
-		rs.next();
-		System.out.println(rs.getString("varchartest"));
-		System.out.println(rs.getString("intTest"));
+		while(rs.next()) {
+			System.out.printf("varcharTest:%s,",rs.getString("varchartest"));
+			System.out.printf("charTest:%s,",rs.getString("chartest"));
+			System.out.printf("intTest:%s,",rs.getString("intTest"));
+			System.out.printf("dateTest:%s,",rs.getString("dateTest"));
+			System.out.printf("dateTimeTest:%s %n",rs.getString("dateTimeTest"));
+		}
 		//6. 닫기(close())
 		rs.close();
 		stmt.close();
