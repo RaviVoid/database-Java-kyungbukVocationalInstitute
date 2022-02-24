@@ -3,6 +3,8 @@ package dao;
 import java.sql.*;
 import java.util.List;
 
+import domain.ExamVO;
+
 public class ExamDAO {
 
 	/**
@@ -11,7 +13,7 @@ public class ExamDAO {
 	 * param : 등록될 값
 	 * return : 없음. 
 	 */
-	public void create() {
+	public void create(ExamVO vo) {
 		//코드작성
 		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
 		String user = "root";
@@ -19,11 +21,11 @@ public class ExamDAO {
 		StringBuffer sql = new StringBuffer();
 		sql.append("\n INSERT INTO exam "); 
 		sql.append("\n (varcharTest, charTest, doubleTest, dateTest, dateTimeTest) ");  
-		sql.append("\n VALUES ('가변폭문자열', '고정폭문자열', 1.1, curdate(), now()) "); 
+		sql.append("\n VALUES (?, ?, ?, ?, ?) "); 
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
+		int idx = 1;
 		try {
 			//드라이버로드
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,6 +33,14 @@ public class ExamDAO {
 			conn = DriverManager.getConnection(url, user, password);
 			//prepareStatement(SQL작성 실행)
 			stmt = conn.prepareStatement(sql.toString());
+			
+			//?에 값설정
+			stmt.setString(idx++, vo.getVarcharTest());
+			stmt.setString(idx++, vo.getCharTest());
+			stmt.setDouble(idx++, vo.getDoubleTest());
+			stmt.setDate(idx++, new Date(vo.getDateTest().getTime()));
+			stmt.setTimestamp(idx++, vo.getDateTimeTest());
+			
 			int res = stmt.executeUpdate();
 			//결과처리(Select문만 ResultSet 객체 리턴)
 		} catch (Exception e) {
@@ -140,12 +150,12 @@ public class ExamDAO {
 	 * return : 없음. 
 	 */
 	public void delete() {
-		//코드작성
 		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
 		String user = "root";
 		String password = "smart";
 		StringBuffer sql = new StringBuffer();
-		sql.append(" DELETE FROM exam ");
+		sql.append("\n DELETE FROM exam "); 
+		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
@@ -164,7 +174,7 @@ public class ExamDAO {
 		} finally {
 			try {
 				if(stmt != null) stmt.close();
-				if(stmt != null) conn.close();
+				if(conn != null) conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -172,10 +182,8 @@ public class ExamDAO {
 			
 		}
 		
-				
-				//닫기
-		
 	}
+
 }
 
 
