@@ -19,8 +19,8 @@ public class Test {
 		//dao.read(readVo);
 		//Timestamp stamp = new Timestamp(System.currentTimeMillis());
 		//Date date = new Date(stamp.getTime());
-		Date date = new Date(new Timestamp(System.currentTimeMillis()).getTime());
-		System.out.println(date);
+		//Date date = new Date(new Timestamp(System.currentTimeMillis()).getTime());
+		//System.out.println(date);
 		
 		// new Date(vo.getDateTest().getTime())
 		
