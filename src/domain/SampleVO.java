@@ -1,79 +1,62 @@
 package domain;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
-public class ExamVO {
+public class SampleVO {
 
 	private int num;
-	private String varcharTest;
-	private String charTest;
-	private double doubleTest;
-	private Date dateTest;
-	private Timestamp dateTimeTest;
+	private String strData;
+	private Date sampleDate;
 	
 	
 	
-	public ExamVO() {
+	public SampleVO() {
 		
 	}
 
 
-	public ExamVO(int num, String varcharTest, String charTest, double doubleTest, Date dateTest,
-			Timestamp dateTimeTest) {
+	public SampleVO(int num, String strData, Date sampleDate) {
 		this.num = num;
-		this.varcharTest = varcharTest;
-		this.charTest = charTest;
-		this.doubleTest = doubleTest;
-		this.dateTest = dateTest;
-		this.dateTimeTest = dateTimeTest;
+		this.strData = strData;
+		this.sampleDate = sampleDate;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "ExamVO [num=" + num + ", varcharTest=" + varcharTest + ", charTest=" + charTest + ", doubleTest="
-				+ doubleTest + ", dateTest=" + dateTest + ", dateTimeTest=" + dateTimeTest + "]";
+		return "SampleVO [num=" + num + ", strData=" + strData + ", sampleDate=" + sampleDate + "]";
 	}
-	
-	
+
+
 	public int getNum() {
 		return num;
 	}
+
+
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public String getVarcharTest() {
-		return varcharTest;
+
+
+	public String getStrData() {
+		return strData;
 	}
-	public void setVarcharTest(String varcharTest) {
-		this.varcharTest = varcharTest;
+
+
+	public void setStrData(String strData) {
+		this.strData = strData;
 	}
-	public String getCharTest() {
-		return charTest;
+
+
+	public Date getSampleDate() {
+		return sampleDate;
 	}
-	public void setCharTest(String charTest) {
-		this.charTest = charTest;
+
+
+	public void setSampleDate(Date sampleDate) {
+		this.sampleDate = sampleDate;
 	}
-	public double getDoubleTest() {
-		return doubleTest;
-	}
-	public void setDoubleTest(double doubleTest) {
-		this.doubleTest = doubleTest;
-	}
-	public Date getDateTest() {
-		return dateTest;
-	}
-	public void setDateTest(Date dateTest) {
-		this.dateTest = dateTest;
-	}
-	public Timestamp getDateTimeTest() {
-		return dateTimeTest;
-	}
-	public void setDateTimeTest(Timestamp dateTimeTest) {
-		this.dateTimeTest = dateTimeTest;
-	}
-	
-	
+
+
 }

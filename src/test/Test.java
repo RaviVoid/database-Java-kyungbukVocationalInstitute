@@ -14,7 +14,7 @@ public class Test {
 		ExamDAO dao = new ExamDAO();
 		//Exam 테이블의 전체 데이터를 조회한다.
 		ExamVO createVo = new ExamVO(0, "가변폭문자열", "고정폭문자열", 0.123, new Date(), new Timestamp(System.currentTimeMillis()));
-		//dao.create(createVo);
+		dao.create(createVo);
 		List<ExamVO> list = dao.read();
 		Iterator<ExamVO> it = list.iterator();
 		while(it.hasNext()) {
