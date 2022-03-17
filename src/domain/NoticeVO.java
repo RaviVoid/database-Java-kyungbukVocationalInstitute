@@ -55,6 +55,12 @@ public class NoticeVO {
 	public void setInputDate(Timestamp inputDate) {
 		this.inputDate = inputDate;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
 	
 
 	
